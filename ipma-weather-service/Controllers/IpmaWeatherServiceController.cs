@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ipma_weather_service.Extensions;
 using ipma_weather_service.Models;
 using ipma_weather_service.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -46,19 +47,22 @@ namespace ipma_weather_service.Controllers
 
             if (weatherResponse != null)
             {
-                viewModel.ForecastDate = weatherResponse.ForecastDate;
+                viewModel.ForecastDate = weatherResponse.Data[0].ForecastDate;
                 viewModel.DataUpdate = weatherResponse.DataUpdate;
                 viewModel.GlobalIdLocal = weatherResponse.GlobalIdLocal;
-                viewModel.IdWeatherType = weatherResponse.IdWeatherType;
-                viewModel.TempMin = weatherResponse.TempMin;
-                viewModel.TempMax = weatherResponse.TempMax;
-                viewModel.ClassWindSpeed = weatherResponse.ClassWindSpeed;
-                viewModel.PredWindDir = weatherResponse.PredWindDir;
-                viewModel.ProbPrecipita = weatherResponse.ProbPrecipita;
-                viewModel.ClassPrecInt = weatherResponse.ClassPrecInt;
-                viewModel.Latitude = weatherResponse.Latitude;
-                viewModel.Longitude = weatherResponse.Longitude;
+                viewModel.IdWeatherType = weatherResponse.Data[0].IdWeatherType;
+                viewModel.TMin = weatherResponse.Data[0].TMin;
+                viewModel.TMax = weatherResponse.Data[0].TMax;
+                viewModel.ClassWindSpeed = weatherResponse.Data[0].ClassWindSpeed;
+                viewModel.PredWindDir = weatherResponse.Data[0].PredWindDir;
+                viewModel.ProbPrecipita = weatherResponse.Data[0].PrecipitaProb;
+                viewModel.ClassPrecInt = weatherResponse.Data[0].ClassPrecInt;
+                viewModel.Latitude = weatherResponse.Data[0].Latitude;
+                viewModel.Longitude = weatherResponse.Data[0].Longitude;
             }
+
+            var str = viewModel.ExtendedWeather();
+
             return View(viewModel);
         }
     }

@@ -36,21 +36,7 @@ namespace ipma_service.Controllers
 
                     var rawWeather = JsonConvert.DeserializeObject<WeatherForecast>(stringResult);
 
-                    return Ok(new WeatherForecast
-                    {
-                        ForecastDate = rawWeather.ForecastDate,
-                        DataUpdate = rawWeather.DataUpdate,
-                        GlobalIdLocal = rawWeather.GlobalIdLocal,
-                        IdWeatherType = rawWeather.IdWeatherType,
-                        TempMin = rawWeather.TempMin,
-                        TempMax = rawWeather.TempMax,
-                        ClassWindSpeed = rawWeather.ClassWindSpeed,
-                        PredWindDir = rawWeather.PredWindDir,
-                        ProbPrecipita = rawWeather.ProbPrecipita,
-                        ClassPrecInt = rawWeather.ClassPrecInt,
-                        Latitude = rawWeather.Latitude,
-                        Longitude = rawWeather.Longitude
-                    });
+                    return Ok(rawWeather);
                 }
                 catch (HttpRequestException httpRequestException)
                 {

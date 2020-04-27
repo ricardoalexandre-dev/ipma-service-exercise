@@ -21,10 +21,10 @@ namespace ipma_weather_service.Models
         public int IdWeatherType { get; set; } 
 
         [Display(Name = "TempMin:")]
-        public double TempMin { get; set; } 
+        public double TMin { get; set; } 
 
         [Display(Name = "TempMax:")]
-        public double TempMax { get; set; } 
+        public double TMax { get; set; } 
 
         [Display(Name = "ClassWindSpeed:")]
         public int ClassWindSpeed { get; set; } 

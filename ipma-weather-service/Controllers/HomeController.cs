@@ -20,7 +20,7 @@ namespace ipma_weather_service.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(SearchCity), "IpmaWeatherService");
         }
 
         public IActionResult Privacy()

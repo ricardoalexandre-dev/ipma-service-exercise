@@ -12,10 +12,9 @@ namespace ipma_weather_service.Repositories
     {
         WeatherResponse IWeatherServiceRepository.GetForecast(int city)
         {
-            string globalIdLocal = Constants.IPMA_SERVICE_WEATHER_CITYID;
 
             // Connection String
-            var client = new RestClient($"https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/{globalIdLocal}.json");
+            var client = new RestClient($"https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/{city}.json");
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
 
