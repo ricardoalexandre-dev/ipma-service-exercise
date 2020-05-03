@@ -1,4 +1,3 @@
-using System;
 
 namespace ipma_weather_service.Models
 {

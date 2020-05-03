@@ -1,6 +1,4 @@
-﻿using ipma_weather_service.Config;
-using ipma_weather_service.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using ipma_weather_service.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;

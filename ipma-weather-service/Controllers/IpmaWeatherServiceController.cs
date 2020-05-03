@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ipma_weather_service.Extensions;
 using ipma_weather_service.Models;
 using ipma_weather_service.Repositories;
