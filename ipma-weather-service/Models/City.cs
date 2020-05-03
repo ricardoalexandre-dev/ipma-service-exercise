@@ -8,11 +8,11 @@ namespace ipma_weather_service.Models
 {
     public class City
     {
-        [Display(Name = "ForecastDate:")]
-        public DateTime ForecastDate { get; set; }
+        //[Display(Name = "ForecastDate:")]
+        //public DateTime ForecastDate { get; set; }
         
-        [Display(Name = "DataUpdate:")]
-        public DateTime DataUpdate { get; set; } 
+        //[Display(Name = "DataUpdate:")]
+        //public DateTime DataUpdate { get; set; } 
         
         [Display(Name = "GlobalIdLocal:")]
         public int GlobalIdLocal { get; set; } 

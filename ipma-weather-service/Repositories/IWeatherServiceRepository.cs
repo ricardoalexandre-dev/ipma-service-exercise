@@ -8,6 +8,9 @@ namespace ipma_weather_service.Repositories
 {
     public interface IWeatherServiceRepository
     {
-        WeatherResponse GetForecast(int city);
+        WeatherResponse GetForecastByCity(int city);
+        
+        WeatherResponse GetForecastForAllCities();
+
     }
 }

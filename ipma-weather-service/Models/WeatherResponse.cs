@@ -8,11 +8,13 @@ namespace ipma_weather_service.Models
 {
     public class WeatherResponse
     {
-        public List<Data> Data { get; set; }
-
         public string Owner { get; set; }
 
         public string Country { get; set; }
+
+        public DateTime ForecastDate { get; set; }
+
+        public List<Data> Data { get; set; }
 
         public DateTime DataUpdate { get; set; } 
 

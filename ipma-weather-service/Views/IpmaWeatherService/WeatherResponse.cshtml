@@ -1,0 +1,152 @@
+﻿@model ipma_weather_service.Models.UserViewModel
+
+@{
+    ViewData["Title"] = "WeatherResponse";
+}
+
+<div class="container">
+
+    <div class="container">
+
+        <div class="form-group col-md-offset-3 col-md-5">
+
+            <h2>Forecast data for all the cities in Portugal</h2>
+
+            <label asp-for="WeatherResponse.Owner"></label>
+            <span class="badge">@Model.WeatherResponse.Owner</span>
+            <br />
+
+            <label asp-for="WeatherResponse.Country"></label>
+            <span class="badge">@Model.WeatherResponse.Country</span>
+            <br />
+
+            <label asp-for="WeatherResponse.ForecastDate"></label>
+            <span class="badge">@Model.WeatherResponse.ForecastDate</span>
+            <br />
+
+            <label asp-for="WeatherResponse.DataUpdate"></label>
+            <span class="badge">@Model.WeatherResponse.DataUpdate</span>
+            <br />
+
+            <label asp-for="WeatherResponse.Data"></label>
+            <br />
+
+            <div>
+
+                <table id="t01">
+                    <thead>
+                    <th>GlobalIdLocal</th>
+                    <th>IdWeatherType</th>
+                    <th>TMin</th>
+                    <th>TMax</th>
+                    <th>ClassWindSpeed</th>
+                    <th>PredWindDir</th>
+                    <th>PrecipitaProb</th>
+                    <th>ClassPrecInt</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    </thead>
+                    @foreach (var item in @Model.WeatherResponse.Data)
+                    {
+                        <tr>
+                            <td>
+                                @item.GlobalIdLocal
+                            </td>
+                            <td>
+                                @item.IdWeatherType
+                            </td>
+                            <td>
+                                @item.TMin
+                            </td>
+                            <td>
+                                @item.TMax
+                            </td>
+                            <td>
+                                @item.ClassWindSpeed
+                            </td>
+                            <td>
+                                @item.PredWindDir
+                            </td>
+                            <td>
+                                @item.PrecipitaProb
+                            </td>
+                            <td>
+                                @item.ClassPrecInt
+                            </td>
+                            <td>
+                                @item.Latitude
+                            </td>
+                            <td>
+                                @item.Longitude
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="form-group col-md-offset-3 col-md-5">
+            <form method="post">
+                <label asp-for="SearchCity.CityGlobalIdLocal" style="font-family: Arial"></label>
+                <input asp-for="SearchCity.CityGlobalIdLocal" class="form-control" />
+                <span asp-validation-for="SearchCity.CityGlobalIdLocal" class="text-danger"></span>
+                <br />
+                <button asp-controller="IpmaWeatherService" asp-action="SearchCity" class="btn btn-primary">Search City by ID</button>
+                <br />
+            </form>
+        </div>
+
+        <div class="form-group col-md-offset-3 col-md-5">
+            <form method="get">
+                <button asp-controller="IpmaWeatherService" asp-action="GetData" class="btn btn-success">Return</button>
+                <br />
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    table#t01 {
+        width: 100%;
+        background-color: #f1f1c1;
+    }
+
+        table#t01 tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table#t01 tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        table#t01 th {
+            color: white;
+            background-color: forestgreen;
+        }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+</style>

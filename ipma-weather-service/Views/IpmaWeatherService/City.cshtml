@@ -1,4 +1,4 @@
-﻿@model ipma_weather_service.Models.City
+﻿@model ipma_weather_service.Models.UserViewModel
 
 @{
     ViewData["Title"] = "City";
@@ -12,55 +12,54 @@
 
             <h2>Forecast for the selected city</h2>
 
-            <label asp-for="GlobalIdLocal"></label>
-            <span class="badge">@Model.GlobalIdLocal</span>
+            <label asp-for="City.GlobalIdLocal"></label>
+            <span class="badge">@Model.City.GlobalIdLocal</span>
             <br />
 
-            <label asp-for="ForecastDate"></label>
-            <span class="badge">@Model.ForecastDate</span>
+            <!--
+                <label asp-for="ForecastDate"></label>
+    <span class="badge">Model.ForecastDate</span>
+    <br />
+
+    <label asp-for="DataUpdate"></label>
+    <span class="badge">Model.DataUpdate</span>
+    <br />
+        -->
+
+            <label asp-for="City.IdWeatherType"></label>
+            <span class="badge">@Model.City.IdWeatherType</span>
             <br />
 
-            <label asp-for="DataUpdate"></label>
-            <span class="badge">@Model.DataUpdate</span>
+            <label asp-for="City.TMin"></label>
+            <span class="badge">@Model.City.TMin ºC</span>
             <br />
 
-            <label asp-for="IdWeatherType"></label>
-            <span class="badge">@Model.IdWeatherType</span>
+            <label asp-for="City.TMax"></label>
+            <span class="badge">@Model.City.TMax ºC</span>
             <br />
 
-            <label asp-for="TMin"></label>
-            <span class="badge">@Model.TMin ºC</span>
+            <label asp-for="City.ClassWindSpeed"></label>
+            <span class="badge">@Model.City.ClassWindSpeed Km/h</span>
             <br />
 
-            <label asp-for="TMax"></label>
-            <span class="badge">@Model.TMax ºC</span>
+            <label asp-for="City.PredWindDir"></label>
+            <span class="badge">@Model.City.PredWindDir</span>
             <br />
 
-            <label asp-for="ClassWindSpeed"></label>
-            <span class="badge">@Model.ClassWindSpeed Km/h</span>
+            <label asp-for="City.ProbPrecipita"></label>
+            <span class="badge">@Model.City.ProbPrecipita %</span>
             <br />
 
-            <label asp-for="PredWindDir"></label>
-            <span class="badge">@Model.PredWindDir</span>
+            <label asp-for="City.ClassPrecInt"></label>
+            <span class="badge">@Model.City.ClassPrecInt</span>
             <br />
 
-            <label asp-for="ProbPrecipita"></label>
-            <span class="badge">@Model.ProbPrecipita %</span>
+            <label asp-for="City.Latitude"></label>
+            <span class="badge">@Model.City.Latitude</span>
             <br />
 
-            <label asp-for="ClassPrecInt"></label>
-            <span class="badge">@Model.ClassPrecInt</span>
-            <br />
-
-            <label asp-for="Latitude"></label>
-            <span class="badge">@Model.Latitude</span>
-            <br />
-            
-            <label asp-for="Longitude"></label>
-            <span class="badge">@Model.Longitude</span>
-
-
-
+            <label asp-for="City.Longitude"></label>
+            <span class="badge">@Model.City.Longitude</span>
 
         </div>
 
@@ -71,7 +70,7 @@
         <div class="form-group col-md-offset-3 col-md-5">
 
             <form method="get">
-                <button asp-controller="IpmaWeatherService" asp-action="SearchCity" class="btn btn-success">Return</button>
+                <button asp-controller="IpmaWeatherService" asp-action="WeatherResponse" class="btn btn-success">Return</button>
             </form>
 
         </div>
