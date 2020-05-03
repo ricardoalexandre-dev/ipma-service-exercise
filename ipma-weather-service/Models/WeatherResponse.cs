@@ -1,5 +1,4 @@
-﻿using ipma_service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ namespace ipma_weather_service.Models
 
         public DateTime ForecastDate { get; set; }
 
-        public List<Data> Data { get; set; }
+        public List<City> Data { get; set; }
 
         public DateTime DataUpdate { get; set; } 
 

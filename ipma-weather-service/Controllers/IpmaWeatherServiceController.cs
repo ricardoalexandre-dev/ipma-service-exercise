@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ipma_service;
 using ipma_weather_service.Extensions;
 using ipma_weather_service.Models;
 using ipma_weather_service.Repositories;
@@ -69,7 +68,7 @@ namespace ipma_weather_service.Controllers
                     viewModel.TMax = weatherResponse.Data[i].TMax;
                     viewModel.ClassWindSpeed = weatherResponse.Data[i].ClassWindSpeed;
                     viewModel.PredWindDir = weatherResponse.Data[i].PredWindDir;
-                    viewModel.ProbPrecipita = weatherResponse.Data[i].PrecipitaProb;
+                    viewModel.PrecipitaProb = weatherResponse.Data[i].PrecipitaProb;
                     viewModel.ClassPrecInt = weatherResponse.Data[i].ClassPrecInt;
                     viewModel.Latitude = weatherResponse.Data[i].Latitude;
                     viewModel.Longitude = weatherResponse.Data[i].Longitude;
@@ -122,7 +121,7 @@ namespace ipma_weather_service.Controllers
                 viewModel.TMax = weatherResponse.Data[0].TMax;
                 viewModel.ClassWindSpeed = weatherResponse.Data[0].ClassWindSpeed;
                 viewModel.PredWindDir = weatherResponse.Data[0].PredWindDir;
-                viewModel.ProbPrecipita = weatherResponse.Data[0].PrecipitaProb;
+                viewModel.PrecipitaProb = weatherResponse.Data[0].PrecipitaProb;
                 viewModel.ClassPrecInt = weatherResponse.Data[0].ClassPrecInt;
                 viewModel.Latitude = weatherResponse.Data[0].Latitude;
                 viewModel.Longitude = weatherResponse.Data[0].Longitude;

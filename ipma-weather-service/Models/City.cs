@@ -32,8 +32,8 @@ namespace ipma_weather_service.Models
         [Display(Name = "PredWindDir:")]
         public string PredWindDir { get; set; } 
 
-        [Display(Name = "ProbPrecipita:")]
-        public double ProbPrecipita { get; set; } 
+        [Display(Name = "PrecipitaProb:")]
+        public double PrecipitaProb { get; set; } 
         
         [Display(Name = "ClassPrecInt:")]
         public int ClassPrecInt { get; set; } 
