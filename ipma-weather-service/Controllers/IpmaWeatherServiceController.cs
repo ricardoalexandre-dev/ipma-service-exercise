@@ -72,9 +72,7 @@ namespace ipma_weather_service.Controllers
                 }
             }
 
-            var str = viewModel.ExtendedWeather(); // <---- extension method
-
-            return View(vmObject); // <---- return viewModel of the cities
+            return View(vmObject); 
         }
 
         // GET: IpmaWeatherService/SearchCity
@@ -124,7 +122,7 @@ namespace ipma_weather_service.Controllers
                 viewModel.Longitude = weatherResponse.Data[0].Longitude;
             }
 
-            var str = viewModel.ExtendedWeather();
+            var str = viewModel.ExtendedWeather(); // <---- extension method (extra)
 
             return View(vmObject);
         }
