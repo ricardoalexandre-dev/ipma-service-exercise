@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ipma_weather_service.Extensions;
 using ipma_weather_service.Models;
 using ipma_weather_service.Repositories;
@@ -19,30 +20,19 @@ namespace ipma_weather_service.Controllers
         public ActionResult UserViewModel()
         {
             UserViewModel vmDemo = new UserViewModel();
-            vmDemo.GetData = new GetData();
+            vmDemo.HomePage = new HomePage();
             vmDemo.City = new City();
             vmDemo.SearchCity = new SearchCity();
             vmDemo.WeatherResponse = new WeatherResponse();
+            vmDemo.Query = new Query();
             return View(vmDemo);
         }
 
-        // GET: IpmaWeatherService/GetData
-        public IActionResult GetData()
+        // GET: IpmaWeatherService/HomePage
+        public IActionResult HomePage()
         {
             var viewModel = new UserViewModel();
             return View(viewModel);
-        }
-
-        // POST: IpmaWeatherService/GetData
-        [HttpPost]
-        public IActionResult GetData(UserViewModel model)
-        {
-            // If the model is valid, consume the Weather API to bring the data of the city
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("WeatherResponse", "IpmaWeatherService");
-            }
-            return View(model);
         }
 
         // GET: IpmaWeatherService/WeatherResponse
@@ -75,11 +65,24 @@ namespace ipma_weather_service.Controllers
             return View(vmObject); 
         }
 
+        // Post: IpmaWeatherService/GetTopTenToday
+        [HttpPost]
+        public IActionResult GetTopTenToday() 
+        {
+            // Consume the IPMA API in order to bring Forecast data in our page.
+            WeatherResponse weatherResponse = _weatherServiceRepository.GetForecastForAllCities();
+            var query = weatherResponse.Data.Where(c => c.TMax > 10).OrderByDescending(c =>c.TMax).Take(10).ToList();
+
+            UserViewModel vmObject = new UserViewModel();
+            vmObject.Query.queryMultiple = query;
+
+            return View(vmObject);
+        }
+
         // GET: IpmaWeatherService/SearchCity
         public IActionResult SearchCity()
         {
             UserViewModel vmObject = new UserViewModel();
-
             return View(vmObject);
         }
 
@@ -87,7 +90,6 @@ namespace ipma_weather_service.Controllers
         [HttpPost]
         public IActionResult SearchCity(UserViewModel model)
         {
-
             // If the model is valid, consume the Weather API to bring the data of the city
             if (ModelState.IsValid)
             {
@@ -108,8 +110,8 @@ namespace ipma_weather_service.Controllers
 
             if (weatherResponse != null)
             {
-                //viewModel.ForecastDate = weatherResponse.ForecastDate;
-                //viewModel.DataUpdate = weatherResponse.DataUpdate;
+                viewModel.ForecastDate = weatherResponse.Data[0].ForecastDate.Date;
+                viewModel.DataUpdate = weatherResponse.DataUpdate;
                 viewModel.GlobalIdLocal = weatherResponse.GlobalIdLocal;
                 viewModel.IdWeatherType = weatherResponse.Data[0].IdWeatherType;
                 viewModel.TMin = weatherResponse.Data[0].TMin;
@@ -126,9 +128,6 @@ namespace ipma_weather_service.Controllers
 
             return View(vmObject);
         }
-
-        
-
         
     }
 }

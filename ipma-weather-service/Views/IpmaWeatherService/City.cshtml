@@ -16,15 +16,13 @@
             <span class="badge">@Model.City.GlobalIdLocal</span>
             <br />
 
-            <!--
-                <label asp-for="ForecastDate"></label>
-    <span class="badge">Model.ForecastDate</span>
-    <br />
+            <label asp-for="City.ForecastDate"></label>
+            <span class="badge">@Model.City.ForecastDate.Date.ToShortDateString()</span>
+            <br />
 
-    <label asp-for="DataUpdate"></label>
-    <span class="badge">Model.DataUpdate</span>
-    <br />
-        -->
+            <label asp-for="City.DataUpdate"></label>
+            <span class="badge">@Model.City.DataUpdate</span>
+            <br />
 
             <label asp-for="City.IdWeatherType"></label>
             <span class="badge">@Model.City.IdWeatherType</span>
@@ -70,7 +68,7 @@
         <div class="form-group col-md-offset-3 col-md-5">
 
             <form method="get">
-                <button asp-controller="IpmaWeatherService" asp-action="GetData" class="btn btn-success">Return</button>
+                <button asp-controller="IpmaWeatherService" asp-action="HomePage" class="btn btn-success">Return</button>
             </form>
 
         </div>

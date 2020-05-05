@@ -9,7 +9,6 @@
     <div class="container">
 
         <div class="form-group col-md-offset-3 col-md-5">
-
             <h2>Forecast data for all the cities in Portugal</h2>
 
             <label asp-for="WeatherResponse.Owner"></label>
@@ -21,7 +20,7 @@
             <br />
 
             <label asp-for="WeatherResponse.ForecastDate"></label>
-            <span class="badge">@Model.WeatherResponse.ForecastDate</span>
+            <span class="badge">@Model.WeatherResponse.ForecastDate.Date.ToShortDateString()</span>
             <br />
 
             <label asp-for="WeatherResponse.DataUpdate"></label>
@@ -103,8 +102,29 @@
         </div>
 
         <div class="form-group col-md-offset-3 col-md-5">
+            <form method="post">
+                <button id="button" asp-controller="IpmaWeatherService" asp-action="GetTopTenToday" class="btn btn-info">Show Top 10 Cities of Today</button>
+                <br />
+                <div>
+                    <table id="t02" class="hidden">
+                        <tr>
+                            <!-- foreach (var item in Model.Query.queryMultiple)
+                            {
+                                <td>
+                                    <input type="hidden" name="var1" value="item.GlobalIdLocal" />
+                                    <br />
+                                </td>
+                            }-->
+                           
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-group col-md-offset-3 col-md-5">
             <form method="get">
-                <button asp-controller="IpmaWeatherService" asp-action="GetData" class="btn btn-success">Return</button>
+                <button asp-controller="IpmaWeatherService" asp-action="HomePage" class="btn btn-success">Return</button>
                 <br />
             </form>
         </div>

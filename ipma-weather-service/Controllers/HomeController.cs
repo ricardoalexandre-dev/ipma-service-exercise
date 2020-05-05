@@ -17,7 +17,7 @@ namespace ipma_weather_service.Controllers
         public IActionResult Index()
         {
             //return RedirectToAction(nameof(SearchCity), "IpmaWeatherService");
-            return RedirectToAction(nameof(GetData), "IpmaWeatherService");
+            return RedirectToAction(nameof(HomePage), "IpmaWeatherService");
 
         }
 
