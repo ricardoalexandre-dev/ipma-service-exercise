@@ -1,16 +1,14 @@
-﻿using ipma_weather_service.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ipma_weather_service.Repositories
 {
-    public interface IWeatherServiceRepository
+    public interface IWeatherServiceRepository<T>
     {
-        WeatherResponse GetForecastByCity(int city);
+        T GetForecastByCity(int city);
         
-        WeatherResponse GetForecastForAllCities();
+        T GetForecastForAllCities();
+
+        Task<T> GetColdestCity(); 
 
     }
 }

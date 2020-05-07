@@ -2,13 +2,16 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ipma_weather_service.Repositories
 {
-    public class WeatherServiceRepository : IWeatherServiceRepository
+    public class WeatherServiceRepository : IWeatherServiceRepository<WeatherResponse>
     {
-        WeatherResponse IWeatherServiceRepository.GetForecastByCity(int city)
+        
+
+        WeatherResponse IWeatherServiceRepository<WeatherResponse>.GetForecastByCity(int city)
         {
             // Connection String
             var client = new RestClient($"https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/{city}.json");
@@ -29,7 +32,7 @@ namespace ipma_weather_service.Repositories
         }
 
 
-        WeatherResponse IWeatherServiceRepository.GetForecastForAllCities()
+        WeatherResponse IWeatherServiceRepository<WeatherResponse>.GetForecastForAllCities()
         {
             // Connection String
             var client = new RestClient($"http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/hp-daily-forecast-day0.json");
@@ -49,6 +52,27 @@ namespace ipma_weather_service.Repositories
             return null;
         }
 
+
+        public async Task<WeatherResponse> GetColdestCity()
+        {
+            // Connection String
+            var httpClient = new HttpClient();
+            
+            var url = $"http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/hp-daily-forecast-day0.json";
+            httpClient.BaseAddress = new System.Uri(url);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentstring = await response.Content.ReadAsStringAsync();
+                var content = JsonConvert.DeserializeObject<WeatherResponse>(contentstring);
+
+                return content;
+            }
+
+            return null;
+        }
 
     }
 }

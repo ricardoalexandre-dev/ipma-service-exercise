@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using ipma_weather_service.Extensions;
 using ipma_weather_service.Models;
 using ipma_weather_service.Repositories;
@@ -9,15 +10,16 @@ namespace ipma_weather_service.Controllers
 {
     public class IpmaWeatherServiceController : Controller
     {
-        private readonly IWeatherServiceRepository _weatherServiceRepository;
+        private readonly IWeatherServiceRepository<WeatherResponse> _weatherServiceRepository;
 
         // Dependency Injection
-        public IpmaWeatherServiceController(IWeatherServiceRepository weatherServiceRepository)
+        public IpmaWeatherServiceController(IWeatherServiceRepository<WeatherResponse> weatherServiceRepository)
         {
             _weatherServiceRepository = weatherServiceRepository;
         }
 
-        public ActionResult UserViewModel()
+        // GET: IpmaWeatherService/UserViewModel
+        public IActionResult UserViewModel()
         {
             UserViewModel vmDemo = new UserViewModel();
             vmDemo.HomePage = new HomePage();
@@ -65,18 +67,38 @@ namespace ipma_weather_service.Controllers
             return View(vmObject); 
         }
 
-        // Post: IpmaWeatherService/GetTopTenToday
-        [HttpPost]
+        // GET: IpmaWeatherService/GetColdestCity
+        [HttpGet]
+        public async Task<IActionResult> GetColdestCity()
+        {
+            WeatherResponse weatherResponse = await _weatherServiceRepository.GetColdestCity();
+
+            var queryLowest = weatherResponse.Data.OrderByDescending(c => c.TMin).FirstOrDefault();
+            var queryLowest2 = weatherResponse.Data.FirstOrDefault(m => m.TMin == weatherResponse.Data.Min(a => a.TMin));
+
+            UserViewModel vmObject = new UserViewModel();
+            vmObject.Query = new Query();
+            vmObject.Query.querySingle = queryLowest;
+
+            return RedirectToAction("(PartialView)", "IpmaWeatherService", vmObject);
+        }
+
+        // GET: IpmaWeatherService/GetTopTenToday
+        [HttpGet]
         public IActionResult GetTopTenToday() 
         {
             // Consume the IPMA API in order to bring Forecast data in our page.
             WeatherResponse weatherResponse = _weatherServiceRepository.GetForecastForAllCities();
             var query = weatherResponse.Data.Where(c => c.TMax > 10).OrderByDescending(c =>c.TMax).Take(10).ToList();
 
+            var queryTop = weatherResponse.Data.OrderByDescending(c => c.TMax).FirstOrDefault();
+            var queryTop2 = weatherResponse.Data.FirstOrDefault(m => m.TMax == weatherResponse.Data.Max(a => a.TMax));
+
             UserViewModel vmObject = new UserViewModel();
+            vmObject.Query = new Query();
             vmObject.Query.queryMultiple = query;
 
-            return View(vmObject);
+            return RedirectToAction("(PartialView)" , "IpmaWeatherService", vmObject);
         }
 
         // GET: IpmaWeatherService/SearchCity
