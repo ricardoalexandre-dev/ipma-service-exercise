@@ -38,18 +38,18 @@ namespace ipma_weather_service.Controllers
         }
 
         // GET: IpmaWeatherService/WeatherResponse
-        public IActionResult WeatherResponse()
+        public async Task<IActionResult> WeatherResponse()
         {
             // Consume the IPMA API in order to bring Forecast data in our page.
-            WeatherResponse weatherResponse = _weatherServiceRepository.GetForecastForAllCities();
-            City viewModel = new City();
+            WeatherResponse weatherResponse = await _weatherServiceRepository.GetForecastForAllCities();
+            City viewModel = new City(); // unused with this implementation
 
             UserViewModel vmObject = new UserViewModel();
             vmObject.WeatherResponse = weatherResponse;
 
-            if (weatherResponse != null)
+            if (weatherResponse != null) // unused with this implementation
             {
-                for (int i = 0; i <= weatherResponse.Data.Count() - 1; i++)
+                for (int i = 0; i <= weatherResponse.Data.Count() - 1; i++) // unused with this implementation
                 {
                     viewModel.GlobalIdLocal = weatherResponse.Data[i].GlobalIdLocal;
                     viewModel.IdWeatherType = weatherResponse.Data[i].IdWeatherType;
@@ -71,7 +71,7 @@ namespace ipma_weather_service.Controllers
         [HttpGet]
         public async Task<IActionResult> GetColdestCity()
         {
-            WeatherResponse weatherResponse = await _weatherServiceRepository.GetColdestCity();
+            WeatherResponse weatherResponse = await _weatherServiceRepository.GetForecastForAllCities();
 
             var queryLowest = weatherResponse.Data.OrderByDescending(c => c.TMin).FirstOrDefault();
             var queryLowest2 = weatherResponse.Data.FirstOrDefault(m => m.TMin == weatherResponse.Data.Min(a => a.TMin));
@@ -85,10 +85,10 @@ namespace ipma_weather_service.Controllers
 
         // GET: IpmaWeatherService/GetTopTenToday
         [HttpGet]
-        public IActionResult GetTopTenToday() 
+        public async Task<IActionResult> GetTopTenToday() 
         {
             // Consume the IPMA API in order to bring Forecast data in our page.
-            WeatherResponse weatherResponse = _weatherServiceRepository.GetForecastForAllCities();
+            WeatherResponse weatherResponse = await _weatherServiceRepository.GetForecastForAllCities();
             var query = weatherResponse.Data.Where(c => c.TMax > 10).OrderByDescending(c =>c.TMax).Take(10).ToList();
 
             var queryTop = weatherResponse.Data.OrderByDescending(c => c.TMax).FirstOrDefault();
@@ -102,7 +102,7 @@ namespace ipma_weather_service.Controllers
         }
 
         // GET: IpmaWeatherService/SearchCity
-        public IActionResult SearchCity()
+        public IActionResult SearchCity() // <----------------- not async
         {
             UserViewModel vmObject = new UserViewModel();
             return View(vmObject);
@@ -110,7 +110,7 @@ namespace ipma_weather_service.Controllers
 
         // POST: IpmaWeatherService/SearchCity
         [HttpPost]
-        public IActionResult SearchCity(UserViewModel model)
+        public async Task<IActionResult> SearchCity(UserViewModel model) // <----------------- not async
         {
             // If the model is valid, consume the Weather API to bring the data of the city
             if (ModelState.IsValid)
@@ -121,10 +121,10 @@ namespace ipma_weather_service.Controllers
         }
 
         // GET: IpmaWeatherService/City
-        public IActionResult City(int city)
+        public async Task<IActionResult> City(int city)
         {
             // Consume the IPMA API in order to bring Forecast data in our page.
-            WeatherResponse weatherResponse = _weatherServiceRepository.GetForecastByCity(city);
+            WeatherResponse weatherResponse = await _weatherServiceRepository.GetForecastByCity(city);
             City viewModel = new City();
 
             UserViewModel vmObject = new UserViewModel();

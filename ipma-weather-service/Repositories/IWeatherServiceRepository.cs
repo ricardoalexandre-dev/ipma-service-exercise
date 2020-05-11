@@ -4,11 +4,8 @@ namespace ipma_weather_service.Repositories
 {
     public interface IWeatherServiceRepository<T>
     {
-        T GetForecastByCity(int city);
+        Task<T> GetForecastByCity(int city);
         
-        T GetForecastForAllCities();
-
-        Task<T> GetColdestCity(); 
-
+        Task<T> GetForecastForAllCities();
     }
 }
